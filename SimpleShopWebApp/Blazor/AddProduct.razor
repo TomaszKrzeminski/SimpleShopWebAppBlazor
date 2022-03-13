@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using SimpleShopWebApp.Models
+@using SimpleShopWebApp.Data
+@inject NavigationManager Navigation
+@implements IDisposable
+@using Microsoft.EntityFrameworkCore.Design
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@using Microsoft.EntityFrameworkCore
+
+@inject IDbContextFactory<ApplicationDbContext>  factory
+
+
+
+
+
+<h3>AddProduct</h3>
+
+<h6 class="bg-info text-center text-white">@FormSubmitMessage</h6>
+
+<EditForm Model="Product" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit">
+    <div class="form-group">
+        <label></label>
+        <InputText @bind-Value="Product.Product.ProductName"></InputText>
+    </div>
+    <div class="form-group">
+        <label></label>
+        <InputNumber @bind-Value="Product.Product.PriceHour"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label></label>
+        <InputNumber @bind-Value="Product.Product.PricePerPerson"></InputNumber>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-danger" type="submit">Dodaj</button>
+    </div>
+
+
+</EditForm>
+
+
+
+
+
+@code {
+
+
+    public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
+    public Repository repository { get; set; }
+
+    public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
+
+
+
+    public AddProductViewModel Product { get; set; } = new AddProductViewModel();
+
+    public async void HandleValidSubmit()
+    {
+        repository = new Repository(factory.CreateDbContext());
+
+        await repository.AddProduct(Product.Product);
+        FormSubmitMessage = "Dane w formularzu wysłane";
+
+    }
+
+    public void Dispose()
+    {
+        //context.DisposeAsync();
+        repository.Dispose();
+    }
+
+}
+

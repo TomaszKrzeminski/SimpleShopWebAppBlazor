@@ -1,0 +1,126 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using SimpleShopWebApp.Models
+@using SimpleShopWebApp.Data
+@inject NavigationManager Navigation
+@implements IDisposable
+@using Microsoft.EntityFrameworkCore.Design
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@using Microsoft.EntityFrameworkCore
+
+@inject IDbContextFactory<ApplicationDbContext>  factory
+
+
+
+
+
+
+<h3>MainPage   @DateTime.Now    </h3>
+
+
+
+<h1>@Title</h1>
+<h1>@Check</h1>
+<EditForm Model="@Viewmodel">
+
+    @foreach (var product in Viewmodel.ProductList)
+    {
+        <div class="form-group">
+            <label>@product.ProductName</label>
+
+
+        </div>
+    }
+
+    <div class="form-group">
+        <button class="btn btn-danger" @onclick="Update">Update</button>
+        <button class="btn btn-info" @onclick="Check2">Check</button>
+    </div>
+
+</EditForm>
+@code {
+
+    private Repository repository;
+
+    [Parameter]
+    public string Title { get; set; } = "";
+
+    [Parameter]
+    public ShowProductsViewModel Viewmodel { get; set; } = new ShowProductsViewModel();
+
+
+
+    public int Check { get; set; } = 1;
+
+
+    async Task<ShowProductsViewModel> GetViewModel()
+    {
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+
+        List<Product> list = await repository.GetProductsAsync();
+
+        ShowProductsViewModel model = new ShowProductsViewModel();
+        model.ProductList = list;
+        Title = "Pobieranie";
+        return model;
+
+
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+        List<Product> list = await repository.GetProductsAsync();
+
+        ShowProductsViewModel model = new ShowProductsViewModel();
+        model.ProductList = list;
+
+        Viewmodel = model;
+        Title = "Start";
+
+    }
+
+
+
+    public async Task Update()
+    {
+
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+        List<Product> list = await repository.GetProductsAsync();
+
+        ShowProductsViewModel model = new ShowProductsViewModel();
+        model.ProductList = list;
+
+
+
+
+        Viewmodel = model;
+        Title = "Update";
+    }
+
+
+
+    public void Check2(MouseEventArgs e)
+    {
+        Check++;
+        Title = "Check";
+    }
+
+
+    public void Dispose()
+    {
+
+        repository.Dispose();
+    }
+
+
+
+}

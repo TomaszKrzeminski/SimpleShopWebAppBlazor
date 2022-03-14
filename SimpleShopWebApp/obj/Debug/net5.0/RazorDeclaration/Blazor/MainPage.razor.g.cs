@@ -12,63 +12,63 @@ namespace SimpleShopWebApp.Blazor
     using System.Linq;
     using System.Threading.Tasks;
 #nullable restore
-#line 1 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 1 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 2 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using SimpleShopWebApp.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 3 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using SimpleShopWebApp.Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 6 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using Microsoft.EntityFrameworkCore.Design;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 7 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using Microsoft.AspNetCore.Components;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 8 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 9 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 10 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 11 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
 using Microsoft.EntityFrameworkCore;
 
 #line default
@@ -82,7 +82,7 @@ using Microsoft.EntityFrameworkCore;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 43 "C:\Users\tomszek\source\repos\SimpleShopWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
+#line 43 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\MainPage.razor"
        
 
     private Repository repository;

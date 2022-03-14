@@ -41,20 +41,54 @@ namespace SimpleShopWebApp
     optionsLifetime: ServiceLifetime.Singleton);
 
 
-        
-
-
             services.AddDatabaseDeveloperPageExceptionFilter();
-           services.AddDbContextFactory<ApplicationDbContext>();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();  
+
+            services.AddDbContextFactory<ApplicationDbContext>();
+
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultUI()
+           .AddDefaultTokenProviders();
+
+
+
+
+
+//            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+//.AddDefaultUI()
+//.AddDefaultTokenProviders()
+//.AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+//            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+//.AddDefaultUI()
+//.AddDefaultTokenProviders()
+//.AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
+
+
+            services.AddAuthorization(options =>
+            options.AddPolicy("Administrator",
+                policy => policy.RequireClaim("Manager")));
+
+
+
+
+            services.AddControllersWithViews();
             ////
-           
-
-
 
             services.AddScoped<UserManager<IdentityUser>>();
+            //services.AddScoped<UserManager<ApplicationUser>>();
+
+            //services.AddScoped<UserManager<ApplicationUser>>();
+
+
+
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; }); ;

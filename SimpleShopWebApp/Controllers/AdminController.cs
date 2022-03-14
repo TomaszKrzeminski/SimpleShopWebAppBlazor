@@ -11,7 +11,7 @@ using SimpleShopWebApp.Models;
 namespace SimpleShopWebApp.Controllers
 {
     //[Authorize]
-   
+    //[Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -22,7 +22,7 @@ namespace SimpleShopWebApp.Controllers
 
 
 
-        [Authorize(Roles = "Administrator")]
+        
         public IActionResult Index()
         {
             return View();
@@ -31,10 +31,35 @@ namespace SimpleShopWebApp.Controllers
 
         public async Task<IActionResult> AddProduct()
         {
-            IdentityUser user=await  _userManager.GetUserAsync(HttpContext.User);
+
+            string Role = "";
+
+            try
+            {
+             IdentityUser user =await  _userManager.GetUserAsync(HttpContext.User);
             var role =await _userManager.GetRolesAsync(user);
 
-            return View();
+                Role = role[0].ToString();
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+           
+
+
+            if( Role=="Administrator")                  
+            {
+ return View();
+            }
+            else
+            {
+                return View("ErrorText","Nie masz uprawnień Administratora");
+            }
+
+           
         }
 
 

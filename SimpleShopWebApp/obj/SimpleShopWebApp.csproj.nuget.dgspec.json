@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tomszek\\source\\repos\\SimpleShopWebApp\\SimpleShopWebApp\\SimpleShopWebApp.csproj": {}
+    "C:\\Users\\tomszek\\Desktop\\SimpleWebApp\\SimpleShopWebApp\\SimpleShopWebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tomszek\\source\\repos\\SimpleShopWebApp\\SimpleShopWebApp\\SimpleShopWebApp.csproj": {
+    "C:\\Users\\tomszek\\Desktop\\SimpleWebApp\\SimpleShopWebApp\\SimpleShopWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tomszek\\source\\repos\\SimpleShopWebApp\\SimpleShopWebApp\\SimpleShopWebApp.csproj",
+        "projectUniqueName": "C:\\Users\\tomszek\\Desktop\\SimpleWebApp\\SimpleShopWebApp\\SimpleShopWebApp.csproj",
         "projectName": "SimpleShopWebApp",
-        "projectPath": "C:\\Users\\tomszek\\source\\repos\\SimpleShopWebApp\\SimpleShopWebApp\\SimpleShopWebApp.csproj",
+        "projectPath": "C:\\Users\\tomszek\\Desktop\\SimpleWebApp\\SimpleShopWebApp\\SimpleShopWebApp.csproj",
         "packagesPath": "C:\\Users\\tomszek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tomszek\\source\\repos\\SimpleShopWebApp\\SimpleShopWebApp\\obj\\",
+        "outputPath": "C:\\Users\\tomszek\\Desktop\\SimpleWebApp\\SimpleShopWebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
@@ -50,19 +50,21 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.14, )"
+              "version": "[5.0.12, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[5.0.14, )"
+              "version": "[5.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.14, )"
+              "version": "[5.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.14, )"
+              "version": "[5.0.12, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",

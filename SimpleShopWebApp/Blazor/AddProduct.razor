@@ -2,7 +2,7 @@
 @using SimpleShopWebApp.Models
 @using SimpleShopWebApp.Data
 @inject NavigationManager Navigation
-@implements IDisposable
+@*@implements IDisposable*@
 @using Microsoft.EntityFrameworkCore.Design
 @using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Routing
@@ -65,11 +65,11 @@
 
     }
 
-    public void Dispose()
-    {
-        //context.DisposeAsync();
-        repository.Dispose();
-    }
+    //public void Dispose()
+    //{
+
+    //    repository.Dispose();
+    //}
 
 }
 

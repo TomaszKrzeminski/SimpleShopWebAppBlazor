@@ -57,26 +57,26 @@ namespace SimpleShopWebApp
 
 
 
-//            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-//.AddDefaultUI()
-//.AddDefaultTokenProviders()
-//.AddEntityFrameworkStores<ApplicationDbContext>();
+            //            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+            //.AddDefaultUI()
+            //.AddDefaultTokenProviders()
+            //.AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-//            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-//.AddDefaultUI()
-//.AddDefaultTokenProviders()
-//.AddEntityFrameworkStores<ApplicationDbContext>();
+            //            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+            //.AddDefaultUI()
+            //.AddDefaultTokenProviders()
+            //.AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 
 
 
-            services.AddAuthorization(options =>
-            options.AddPolicy("Administrator",
-                policy => policy.RequireClaim("Manager")));
+            //services.AddAuthorization(options =>
+            //options.AddPolicy("Administrator",
+            //    policy => policy.RequireClaim("Manager")));
 
-
+            services.AddAuthorizationCore();
 
 
             services.AddControllersWithViews();

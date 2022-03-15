@@ -41,7 +41,27 @@ namespace SimpleShopWebApp.Models
 
     }
 
-    
+
+    public class RemoveProductData
+    {
+        public int ProductId { get; set; }
+
+        public string ProductName { get; set; }
+
+        public DateTime ProductStartTime { get; set; }
+
+        public DateTime ProductEndTime { get; set; }
+    }
+
+    public class RemoveProductViewModel
+    {
+        public RemoveProductViewModel()
+        {
+            RemoveList = new List<RemoveProductData>();
+        }
+        public List<RemoveProductData> RemoveList { get; set; }
+
+    }
 
 
 

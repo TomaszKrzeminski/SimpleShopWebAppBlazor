@@ -10,8 +10,8 @@ using SimpleShopWebApp.Models;
 
 namespace SimpleShopWebApp.Controllers
 {
-    //[Authorize]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -23,7 +23,7 @@ namespace SimpleShopWebApp.Controllers
 
 
         
-        public IActionResult Index()
+        public IActionResult AdminPanel()
         {
             return View();
         }
@@ -62,6 +62,17 @@ namespace SimpleShopWebApp.Controllers
            
         }
 
+
+        public async Task<IActionResult>  RemoveProduct()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> BlockUser()
+        {
+            return View();
+
+        }
 
     }
 }

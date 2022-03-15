@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using SimpleShopWebApp.Models
+@using SimpleShopWebApp.Data
+@inject NavigationManager Navigation
+@*@implements IDisposable*@
+@using Microsoft.EntityFrameworkCore.Design
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@using Microsoft.EntityFrameworkCore
+
+@inject IDbContextFactory<ApplicationDbContext>  factory
+
+
+
+
+
+<h3>RemoveProduct</h3>
+
+<h6 class="bg-info text-center text-white">@FormSubmitMessage</h6>
+
+
+
+
+
+@foreach (var item in RemoveList)
+{
+    
+<EditForm Model="item">
+    <div>
+        <label>
+            xxxcxvxxcvxcvcxxcvcx
+        </label>
+        <label>@item.ProductId</label>
+        <label>@item.ProductName</label>
+
+
+
+    </div>
+</EditForm>
+       
+   
+  
+
+}
+
+
+
+
+
+
+
+@code {
+
+
+
+
+
+
+
+
+    public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
+    public Repository repository { get; set; }
+
+    public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
+
+    public List<RemoveProductData>
+    RemoveList { get; set; } = new List<RemoveProductData>
+        ();
+
+       [Parameter]
+       public RemoveProductData removeProduct { get; set; }
+
+        public RemoveProductViewModel Model { get; set; } = new RemoveProductViewModel();
+
+
+
+        protected override async Task OnInitializedAsync()
+        {
+
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+        List<RemoveProductData>
+            list = await repository.GetProductsRemoveData();
+
+            RemoveList = list;
+
+            }
+
+
+
+
+            public async void HandleValidSubmit()
+            {
+            //repository = new Repository(factory.CreateDbContext());
+
+            //await repository.AddProduct(Product.Product);
+            //FormSubmitMessage = "Dane w formularzu wysłane";
+
+            }
+
+
+
+            }

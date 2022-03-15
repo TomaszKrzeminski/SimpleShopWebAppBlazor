@@ -376,3 +376,7 @@ C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Ar
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Error.cshtml.g.cs
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Views\Admin\AdminPanel.cshtml.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\RazorDeclaration\Blazor\RemoveProduct.razor.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Blazor\RemoveProduct.razor.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Views\Admin\RemoveProduct.cshtml.g.cs

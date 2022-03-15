@@ -31,6 +31,26 @@ namespace SimpleShopWebApp.Models
         }
 
 
+
+        public async Task<List<RemoveProductData>> GetProductsRemoveData()
+        {       
+
+
+            try
+            {
+                Task<List<RemoveProductData>> list = context.Products.Select(x => new RemoveProductData { ProductId = x.ProductId, ProductName = x.ProductName, ProductStartTime = x.DateTimeStart, ProductEndTime = x.DateTimeEnd }).ToListAsync<RemoveProductData>();
+                return await list;
+            }
+            catch(Exception ex)
+            {
+                return new List<RemoveProductData>();
+            }
+
+
+        }
+
+
+
         public async Task<List<Product>> GetProductsAsync()
         {
             return await context.Products.Take(1000).ToListAsync();

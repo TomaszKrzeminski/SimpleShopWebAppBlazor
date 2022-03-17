@@ -82,59 +82,76 @@ using Microsoft.EntityFrameworkCore;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 54 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\RemoveProduct.razor"
+#line 79 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\RemoveProduct.razor"
        
-
-
-
-
-
-
-
 
     public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
     public Repository repository { get; set; }
 
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
-
-    public List<RemoveProductData>
-    RemoveList { get; set; } = new List<RemoveProductData>
-        ();
-
-       [Parameter]
-       public RemoveProductData removeProduct { get; set; }
-
-        public RemoveProductViewModel Model { get; set; } = new RemoveProductViewModel();
+    [Parameter]
+    public List<RemoveProductData> RemoveList { get; set; } = new List<RemoveProductData>();
 
 
 
-        protected override async Task OnInitializedAsync()
-        {
+    [Parameter]
+    public RemoveProductData removeProduct { get; set; }
+
+    public RemoveProductViewModel Model { get; set; } = new RemoveProductViewModel();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
 
         ApplicationDbContext context = factory.CreateDbContext();
         repository = new Repository(context);
         List<RemoveProductData>
             list = await repository.GetProductsRemoveData();
 
-            RemoveList = list;
+        RemoveList = list;
 
-            }
-
-
-
-
-            public async void HandleValidSubmit()
-            {
-            //repository = new Repository(factory.CreateDbContext());
-
-            //await repository.AddProduct(Product.Product);
-            //FormSubmitMessage = "Dane w formularzu wysłane";
-
-            }
+    }
 
 
 
-            
+
+    public async void HandleValidSubmit(RemoveProductData data)
+    {
+        FormSubmitMessage = "Wysyłam formularz";
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+
+        await repository.RemoveProduct(data);
+
+        await UpdateView();
+
+
+    }
+
+
+
+    public async Task UpdateView()
+    {
+        FormSubmitMessage = "Odświerzam";
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+
+        List<RemoveProductData>
+           list = await repository.GetProductsRemoveData();
+
+        RemoveList = list;
+
+
+    }
+
+    public void Dispose()
+    {
+
+        repository.Dispose();
+    }
+
+
 
 #line default
 #line hidden

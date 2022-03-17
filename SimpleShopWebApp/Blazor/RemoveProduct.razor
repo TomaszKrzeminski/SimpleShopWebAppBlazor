@@ -12,38 +12,63 @@
 
 @inject IDbContextFactory<ApplicationDbContext>  factory
 
-
-
-
+<style>
+    .hide {
+        position: fixed;
+        left: -200px;
+        top: -200px;
+    }
+</style>
 
 <h3>RemoveProduct</h3>
 
-<h6 class="bg-info text-center text-white">@FormSubmitMessage</h6>
+<h3>MainPage   @DateTime.Now    </h3>
+
+<h2>@FormSubmitMessage</h2>
 
 
-
-
-
-@foreach (var item in RemoveList)
-{
-    
-<EditForm Model="item">
-    <div>
-        <label>
-            xxxcxvxxcvxcvcxxcvcx
-        </label>
-        <label>@item.ProductId</label>
-        <label>@item.ProductName</label>
-
-
-
-    </div>
-</EditForm>
-       
+@*<table class="table table-hover">*@
    
-  
+    
 
-}
+        @foreach (RemoveProductData item in @RemoveList)
+        {
+       
+
+        
+            
+            <div>
+                <EditForm Model="item" OnValidSubmit="()=>HandleValidSubmit(item)">
+
+                    <td><label>@item.ProductId</label></td>
+                    <td><label>@item.ProductName</label></td>
+                    <td><label>@item.ProductStartTime</label></td>
+                    <td><label>@item.ProductEndTime</label></td>
+                    <td>
+                        <button type="submit" class="btn btn-danger" >Usuń</button>
+                    </td>
+                </EditForm>
+            </div>
+
+            
+        
+
+
+       
+         }
+
+
+      
+   
+@*</table>*@
+
+
+
+
+
+
+
+
 
 
 
@@ -53,53 +78,71 @@
 
 @code {
 
-
-
-
-
-
-
-
     public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
     public Repository repository { get; set; }
 
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
-
-    public List<RemoveProductData>
-    RemoveList { get; set; } = new List<RemoveProductData>
-        ();
-
-       [Parameter]
-       public RemoveProductData removeProduct { get; set; }
-
-        public RemoveProductViewModel Model { get; set; } = new RemoveProductViewModel();
+    [Parameter]
+    public List<RemoveProductData> RemoveList { get; set; } = new List<RemoveProductData>();
 
 
 
-        protected override async Task OnInitializedAsync()
-        {
+    [Parameter]
+    public RemoveProductData removeProduct { get; set; }
+
+    public RemoveProductViewModel Model { get; set; } = new RemoveProductViewModel();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
 
         ApplicationDbContext context = factory.CreateDbContext();
         repository = new Repository(context);
         List<RemoveProductData>
             list = await repository.GetProductsRemoveData();
 
-            RemoveList = list;
+        RemoveList = list;
 
-            }
-
-
-
-
-            public async void HandleValidSubmit()
-            {
-            //repository = new Repository(factory.CreateDbContext());
-
-            //await repository.AddProduct(Product.Product);
-            //FormSubmitMessage = "Dane w formularzu wysłane";
-
-            }
+    }
 
 
 
-            }
+
+    public async void HandleValidSubmit(RemoveProductData data)
+    {
+        FormSubmitMessage = "Wysyłam formularz";
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+
+        await repository.RemoveProduct(data);
+
+        await UpdateView();
+
+
+    }
+
+
+
+    public async Task UpdateView()
+    {
+        FormSubmitMessage = "Odświerzam";
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+
+        List<RemoveProductData>
+           list = await repository.GetProductsRemoveData();
+
+        RemoveList = list;
+
+
+    }
+
+    public void Dispose()
+    {
+
+        repository.Dispose();
+    }
+
+
+}

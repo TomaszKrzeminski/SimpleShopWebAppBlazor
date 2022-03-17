@@ -31,6 +31,29 @@ namespace SimpleShopWebApp.Models
         }
 
 
+        public async Task<string> RemoveProduct(RemoveProductData data)
+        {
+            string text = "";
+            try
+            {
+            text = "Usunięto wydarzenie " + data.ProductName + " z dnia " + data.ProductStartTime;
+            Product product = context.Products.Find(data.ProductId);
+            context.Products.Remove(product);
+            await context.SaveChangesAsync();               
+                
+            }
+            catch(Exception ex)
+            {
+                text = "Nie można usunąć wydarzenia " + data.ProductName + " z dnia " + data.ProductStartTime;
+            }
+
+            return text;
+
+
+        }
+
+
+
 
         public async Task<List<RemoveProductData>> GetProductsRemoveData()
         {       

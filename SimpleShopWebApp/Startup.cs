@@ -27,12 +27,10 @@ namespace SimpleShopWebApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+       
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("DefaultConnection")));
+
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -40,13 +38,13 @@ namespace SimpleShopWebApp
     contextLifetime: ServiceLifetime.Transient,
     optionsLifetime: ServiceLifetime.Singleton);
 
+            
+
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDbContextFactory<ApplicationDbContext>();
-
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+           
 
             services.AddIdentity<IdentityUser, IdentityRole>()
            .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -57,24 +55,7 @@ namespace SimpleShopWebApp
 
 
 
-            //            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-            //.AddDefaultUI()
-            //.AddDefaultTokenProviders()
-            //.AddEntityFrameworkStores<ApplicationDbContext>();
-
-
-            //            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-            //.AddDefaultUI()
-            //.AddDefaultTokenProviders()
-            //.AddEntityFrameworkStores<ApplicationDbContext>();
-
-
-
-
-
-            //services.AddAuthorization(options =>
-            //options.AddPolicy("Administrator",
-            //    policy => policy.RequireClaim("Manager")));
+           
 
             services.AddAuthorizationCore();
 
@@ -82,19 +63,14 @@ namespace SimpleShopWebApp
             services.AddControllersWithViews();
             ////
 
-            services.AddScoped<UserManager<IdentityUser>>();
-            //services.AddScoped<UserManager<ApplicationUser>>();
-
-            //services.AddScoped<UserManager<ApplicationUser>>();
-
-
+            services.AddScoped<UserManager<IdentityUser>>();           
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; }); ;
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context)
         {
             if (env.IsDevelopment())

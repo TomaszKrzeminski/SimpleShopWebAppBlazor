@@ -74,7 +74,7 @@ using Microsoft.EntityFrameworkCore;
 #line default
 #line hidden
 #nullable disable
-    public partial class AddProduct : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class AddProduct : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -82,7 +82,7 @@ using Microsoft.EntityFrameworkCore;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 47 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
+#line 50 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
        
 
 
@@ -92,23 +92,24 @@ using Microsoft.EntityFrameworkCore;
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
 
-
+    [Parameter]
     public AddProductViewModel Product { get; set; } = new AddProductViewModel();
 
     public async void HandleValidSubmit()
     {
+        FormSubmitMessage = "Dodano  "+Product.Product.ProductName+ " z dnia "+Product.Product.DateTimeStart;
         repository = new Repository(factory.CreateDbContext());
 
         await repository.AddProduct(Product.Product);
-        FormSubmitMessage = "Dane w formularzu wysłane";
+
 
     }
 
-    //public void Dispose()
-    //{
+    public void Dispose()
+    {
 
-    //    repository.Dispose();
-    //}
+        repository.Dispose();
+    }
 
 
 #line default

@@ -85,7 +85,7 @@ namespace SimpleShopWebApp.Models
         {
             try
             {
-                await context.Products.AddAsync(product);
+                context.Products.Add(product);
                 await context.SaveChangesAsync();
                 return true;
             }

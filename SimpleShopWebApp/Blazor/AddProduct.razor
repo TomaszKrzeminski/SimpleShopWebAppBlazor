@@ -2,7 +2,7 @@
 @using SimpleShopWebApp.Models
 @using SimpleShopWebApp.Data
 @inject NavigationManager Navigation
-@*@implements IDisposable*@
+@implements IDisposable
 @using Microsoft.EntityFrameworkCore.Design
 @using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Routing
@@ -18,7 +18,7 @@
 
 <h3>AddProduct</h3>
 
-<h6 class="bg-info text-center text-white">@FormSubmitMessage</h6>
+<input class="form-control" @bind="FormSubmitMessage" />
 
 <EditForm Model="Product" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit">
     <div class="form-group">
@@ -34,7 +34,10 @@
         <InputNumber @bind-Value="Product.Product.PricePerPerson"></InputNumber>
     </div>
     <div class="form-group">
-        <button class="btn btn-danger" type="submit">Dodaj</button>
+
+        <input class="btn btn-primary" type="submit" value="Dodaj"/>
+
+        @*<button class="btn btn-danger" type="submit">Dodaj</button>*@
     </div>
 
 
@@ -53,23 +56,24 @@
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
 
-
+    [Parameter]
     public AddProductViewModel Product { get; set; } = new AddProductViewModel();
 
     public async void HandleValidSubmit()
     {
+        FormSubmitMessage = "Dodano  "+Product.Product.ProductName+ " z dnia "+Product.Product.DateTimeStart;
         repository = new Repository(factory.CreateDbContext());
 
         await repository.AddProduct(Product.Product);
-        FormSubmitMessage = "Dane w formularzu wysłane";
+
 
     }
 
-    //public void Dispose()
-    //{
+    public void Dispose()
+    {
 
-    //    repository.Dispose();
-    //}
+        repository.Dispose();
+    }
 
 }
 

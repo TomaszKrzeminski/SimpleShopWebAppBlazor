@@ -90,7 +90,7 @@ using Microsoft.EntityFrameworkCore;
 
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
-    
+    public bool DataLogin = false;
     public IEnumerable<RemoveProductData> RemoveList { get; set; } = new List<RemoveProductData>();
 
 
@@ -117,15 +117,62 @@ using Microsoft.EntityFrameworkCore;
 
 
 
-    public async void HandleValidSubmit(RemoveProductData data)
+    public async Task HandleValidSubmit(RemoveProductData data)
     {
-        FormSubmitMessage = "Wysyłam formularz";
-        ApplicationDbContext context = factory.CreateDbContext();
-        repository = new Repository(context);
 
-        await repository.RemoveProduct(data);
+
+        if (DataLogin)
+        {
+            return;
+        }
+
+
+
+        try
+        {
+
+
+            
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 131 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\RemoveProduct.razor"
+             using (var repo = new Repository(factory.CreateDbContext()))
+            {
+                DataLogin = true;
+                FormSubmitMessage = "Wysyłam formularz";
+
+                await repository.RemoveProduct(data);
+
+            }
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 138 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\RemoveProduct.razor"
+             
+
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+        finally
+        {
+
+            RemoveList = new List<RemoveProductData>();
+            DataLogin = false;
+
+
+        }
+
 
         await UpdateView();
+
 
 
     }
@@ -134,24 +181,62 @@ using Microsoft.EntityFrameworkCore;
 
     public async Task UpdateView()
     {
-        FormSubmitMessage = "Odświerzam";
-        ApplicationDbContext context = factory.CreateDbContext();
-        repository = new Repository(context);
 
-        List<RemoveProductData>
-           list = await repository.GetProductsRemoveData();
 
-        RemoveList = list;
+        if(DataLogin)
+        {
+            return;
+        }
+
+
+
+        try
+        {
+
+
+            
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 179 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\RemoveProduct.razor"
+             using (var repo = new Repository(factory.CreateDbContext()))
+            {
+
+                FormSubmitMessage = "Odświerzam";
+                ApplicationDbContext context = factory.CreateDbContext();
+                repository = new Repository(context);
+                RemoveList = await repository.GetProductsRemoveData();
+
+            }
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 187 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\RemoveProduct.razor"
+             
+
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+        finally
+        {
+
+           
+            DataLogin = false;
+
+
+        }   
 
 
     }
 
-    public void Dispose()
-    {
-
-        repository.Dispose();
-    }
-
+    
 
 
 #line default

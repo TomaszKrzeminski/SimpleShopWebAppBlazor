@@ -93,10 +93,6 @@ using Microsoft.EntityFrameworkCore;
 
     public bool DataLogin = false;
 
-
-
-
-
     public AddProductViewModel Product { get; set; } = new AddProductViewModel();
 
     public async Task HandleValidSubmit()

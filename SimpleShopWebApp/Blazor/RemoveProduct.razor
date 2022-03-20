@@ -28,41 +28,41 @@
 
 
 
-   
-    
-
-        @foreach (RemoveProductData item in RemoveList)
-        {
 
 
 
-
-<div>
-    <EditForm Model="item" OnValidSubmit="()=>HandleValidSubmit(item)">
-
-        <td><label>@item.ProductId</label></td>
-        <td><label>@item.ProductName</label></td>
-        <td><label>@item.ProductStartTime</label></td>
-        <td><label>@item.ProductEndTime</label></td>
-        <td>
-            @*<button type="submit" class="btn btn-danger" >Usuń</button>*@
-            <input type="submit" class="btn btn-danger" value="Usuń" />
-
-        </td>
-    </EditForm>
-    <input class="btn btn-danger" value="Update" @onclick="UpdateView" />
-</div>
-
-            
-        
+@foreach (RemoveProductData item in RemoveList)
+{
 
 
-       
-         }
 
 
-      
-   
+    <div>
+        <EditForm Model="item" OnValidSubmit="()=>HandleValidSubmit(item)">
+
+            <td><label>@item.ProductId</label></td>
+            <td><label>@item.ProductName</label></td>
+            <td><label>@item.ProductStartTime</label></td>
+            <td><label>@item.ProductEndTime</label></td>
+            <td>
+                @*<button type="submit" class="btn btn-danger" >Usuń</button>*@
+                <input type="submit" class="btn btn-danger" value="Usuń" />
+
+            </td>
+        </EditForm>
+        <input class="btn btn-danger" value="Update" @onclick="UpdateView" />
+    </div>
+
+
+
+
+
+
+}
+
+
+
+
 @*</table>*@
 
 
@@ -86,7 +86,7 @@
 
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
-    
+    public bool DataLogin = false;
     public IEnumerable<RemoveProductData> RemoveList { get; set; } = new List<RemoveProductData>();
 
 
@@ -113,15 +113,48 @@
 
 
 
-    public async void HandleValidSubmit(RemoveProductData data)
+    public async Task HandleValidSubmit(RemoveProductData data)
     {
-        FormSubmitMessage = "Wysyłam formularz";
-        ApplicationDbContext context = factory.CreateDbContext();
-        repository = new Repository(context);
 
-        await repository.RemoveProduct(data);
+
+        if (DataLogin)
+        {
+            return;
+        }
+
+
+
+        try
+        {
+
+
+            @using (var repo = new Repository(factory.CreateDbContext()))
+            {
+                DataLogin = true;
+                FormSubmitMessage = "Wysyłam formularz";
+
+                await repository.RemoveProduct(data);
+
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+        finally
+        {
+
+            RemoveList = new List<RemoveProductData>();
+            DataLogin = false;
+
+
+        }
+
 
         await UpdateView();
+
 
 
     }
@@ -130,23 +163,47 @@
 
     public async Task UpdateView()
     {
-        FormSubmitMessage = "Odświerzam";
-        ApplicationDbContext context = factory.CreateDbContext();
-        repository = new Repository(context);
 
-        List<RemoveProductData>
-           list = await repository.GetProductsRemoveData();
 
-        RemoveList = list;
+        if(DataLogin)
+        {
+            return;
+        }
+
+
+
+        try
+        {
+
+
+            @using (var repo = new Repository(factory.CreateDbContext()))
+            {
+
+                FormSubmitMessage = "Odświerzam";
+                ApplicationDbContext context = factory.CreateDbContext();
+                repository = new Repository(context);
+                RemoveList = await repository.GetProductsRemoveData();
+
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+        finally
+        {
+
+           
+            DataLogin = false;
+
+
+        }   
 
 
     }
 
-    public void Dispose()
-    {
-
-        repository.Dispose();
-    }
-
+    
 
 }

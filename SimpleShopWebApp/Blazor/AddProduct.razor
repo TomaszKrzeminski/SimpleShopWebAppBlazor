@@ -20,7 +20,7 @@
 
 <input class="form-control" @bind="FormSubmitMessage" />
 
-<EditForm Model="@Product" OnInvalidSubmit="HandleInvalidSubmit" >
+<EditForm Model="@Product" OnInvalidSubmit="HandleInvalidSubmit"    OnValidSubmit="HandleValidSubmit" >
     <div class="form-group">
         <label></label>
         <InputText @bind-Value="Product.Product.ProductName"></InputText>
@@ -35,9 +35,9 @@
     </div>
     <div class="form-group">
 
-        <input class="btn btn-primary"  value="Dodaj"  @onclick="HandleValidSubmit"   />
+        @*<input class="btn btn-primary"  value="Dodaj"  @onclick="HandleValidSubmit"   />*@
 
-        @*<button class="btn btn-danger" type="submit">Dodaj</button>*@
+        <button class="btn btn-danger" type="submit">Dodaj</button>
     </div>
 
 
@@ -56,10 +56,6 @@
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
     public bool DataLogin = false;
-
-
-
-
 
     public AddProductViewModel Product { get; set; } = new AddProductViewModel();
 

@@ -31,19 +31,38 @@ namespace SimpleShopWebApp
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddRazorPages();
+
+            services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
+
+
+
+
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
-    contextLifetime: ServiceLifetime.Transient,
-    optionsLifetime: ServiceLifetime.Singleton);
+   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+   contextLifetime: ServiceLifetime.Transient,
+   optionsLifetime: ServiceLifetime.Singleton);
 
-            
+
+
+            //services.AddDbContextFactory<ApplicationDbContext>();
+
+
+            services.AddDbContextFactory<ApplicationDbContext>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //        services.AddDbContext<ApplicationDbContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDbContextFactory<ApplicationDbContext>();
+            
            
 
             services.AddIdentity<IdentityUser, IdentityRole>()
@@ -67,7 +86,7 @@ namespace SimpleShopWebApp
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; }); ;
+           
         }
 
        

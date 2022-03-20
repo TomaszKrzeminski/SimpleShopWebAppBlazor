@@ -74,7 +74,7 @@ using Microsoft.EntityFrameworkCore;
 #line default
 #line hidden
 #nullable disable
-    public partial class AddProduct : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
+    public partial class AddProduct : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -91,25 +91,112 @@ using Microsoft.EntityFrameworkCore;
 
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
+    public bool DataLogin = false;
 
-    [Parameter]
+
+
+
+
     public AddProductViewModel Product { get; set; } = new AddProductViewModel();
 
-    public async void HandleValidSubmit()
+    public async Task HandleValidSubmit()
     {
-        FormSubmitMessage = "Dodano  "+Product.Product.ProductName+ " z dnia "+Product.Product.DateTimeStart;
-        repository = new Repository(factory.CreateDbContext());
 
-        await repository.AddProduct(Product.Product);
+
+        if(DataLogin)
+        {
+            return;
+        }
+
+
+        try
+        {
+            DataLogin = true;
+            FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
+
+
+            using(var repo=new Repository( factory.CreateDbContext()))
+            {
+
+                await repo.AddProduct(Product.Product);
+
+            }
+
+
+
+
+        }
+        catch(Exception ex)
+        {
+
+        }
+        finally
+        {
+            Product = new AddProductViewModel();
+            DataLogin = false;
+
+        }
+
+
+
+
+
+
+
 
 
     }
 
-    public void Dispose()
+
+
+
+
+
+
+
+    public  async Task Update()
     {
 
-        repository.Dispose();
+        //FormSubmitMessage = "Odświeżam";
+
     }
+
+
+
+
+    //public void Dispose()
+    //{
+    //    FormSubmitMessage = "Usuwam";
+    //    repository.Dispose();
+    //}
+
+
+
+    //public void Dispose()
+    //{
+
+
+    //    if(DataLogin)
+    //    {
+    //        return;
+    //    }
+
+    //    try
+    //    {
+    //        DataLogin = true;
+    //        repository.Dispose();
+    //    }
+    //    catch(Exception ex)
+    //    {
+
+    //    }
+
+    //    finally
+    //    {
+    //        DataLogin = false;
+    //    }
+
+    //}
 
 
 #line default

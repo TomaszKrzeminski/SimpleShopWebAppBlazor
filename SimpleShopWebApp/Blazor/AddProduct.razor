@@ -2,7 +2,7 @@
 @using SimpleShopWebApp.Models
 @using SimpleShopWebApp.Data
 @inject NavigationManager Navigation
-@implements IDisposable
+@*@implements IDisposable*@
 @using Microsoft.EntityFrameworkCore.Design
 @using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Routing
@@ -20,7 +20,7 @@
 
 <input class="form-control" @bind="FormSubmitMessage" />
 
-<EditForm Model="Product" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@Product" OnInvalidSubmit="HandleInvalidSubmit" >
     <div class="form-group">
         <label></label>
         <InputText @bind-Value="Product.Product.ProductName"></InputText>
@@ -35,7 +35,7 @@
     </div>
     <div class="form-group">
 
-        <input class="btn btn-primary" type="submit" value="Dodaj"/>
+        <input class="btn btn-primary"  value="Dodaj"  @onclick="HandleValidSubmit"   />
 
         @*<button class="btn btn-danger" type="submit">Dodaj</button>*@
     </div>
@@ -55,25 +55,112 @@
 
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
+    public bool DataLogin = false;
 
-    [Parameter]
+
+
+
+
     public AddProductViewModel Product { get; set; } = new AddProductViewModel();
 
-    public async void HandleValidSubmit()
+    public async Task HandleValidSubmit()
     {
-        FormSubmitMessage = "Dodano  "+Product.Product.ProductName+ " z dnia "+Product.Product.DateTimeStart;
-        repository = new Repository(factory.CreateDbContext());
 
-        await repository.AddProduct(Product.Product);
+
+        if(DataLogin)
+        {
+            return;
+        }
+
+
+        try
+        {
+            DataLogin = true;
+            FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
+
+
+            using(var repo=new Repository( factory.CreateDbContext()))
+            {
+
+                await repo.AddProduct(Product.Product);
+
+            }
+
+
+
+
+        }
+        catch(Exception ex)
+        {
+
+        }
+        finally
+        {
+            Product = new AddProductViewModel();
+            DataLogin = false;
+
+        }
+
+
+
+
+
+
+
 
 
     }
 
-    public void Dispose()
+
+
+
+
+
+
+
+    public  async Task Update()
     {
 
-        repository.Dispose();
+        //FormSubmitMessage = "Odświeżam";
+
     }
+
+
+
+
+    //public void Dispose()
+    //{
+    //    FormSubmitMessage = "Usuwam";
+    //    repository.Dispose();
+    //}
+
+
+
+    //public void Dispose()
+    //{
+
+
+    //    if(DataLogin)
+    //    {
+    //        return;
+    //    }
+
+    //    try
+    //    {
+    //        DataLogin = true;
+    //        repository.Dispose();
+    //    }
+    //    catch(Exception ex)
+    //    {
+
+    //    }
+
+    //    finally
+    //    {
+    //        DataLogin = false;
+    //    }
+
+    //}
 
 }
 

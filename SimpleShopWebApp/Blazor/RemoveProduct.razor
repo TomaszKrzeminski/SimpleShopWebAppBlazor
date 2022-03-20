@@ -27,28 +27,31 @@
 <input class="form-control" @bind="FormSubmitMessage" />
 
 
-@*<table class="table table-hover">*@
+
    
     
 
-        @foreach (RemoveProductData item in @RemoveList)
+        @foreach (RemoveProductData item in RemoveList)
         {
-       
 
-        
-            
-            <div>
-                <EditForm Model="item" OnValidSubmit="()=>HandleValidSubmit(item)">
 
-                    <td><label>@item.ProductId</label></td>
-                    <td><label>@item.ProductName</label></td>
-                    <td><label>@item.ProductStartTime</label></td>
-                    <td><label>@item.ProductEndTime</label></td>
-                    <td>
-                        <button type="submit" class="btn btn-danger" >Usuń</button>
-                    </td>
-                </EditForm>
-            </div>
+
+
+<div>
+    <EditForm Model="item" OnValidSubmit="()=>HandleValidSubmit(item)">
+
+        <td><label>@item.ProductId</label></td>
+        <td><label>@item.ProductName</label></td>
+        <td><label>@item.ProductStartTime</label></td>
+        <td><label>@item.ProductEndTime</label></td>
+        <td>
+            @*<button type="submit" class="btn btn-danger" >Usuń</button>*@
+            <input type="submit" class="btn btn-danger" value="Usuń" />
+
+        </td>
+    </EditForm>
+    <input class="btn btn-danger" value="Update" @onclick="UpdateView" />
+</div>
 
             
         
@@ -82,8 +85,9 @@
     public Repository repository { get; set; }
 
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
-    [Parameter]
-    public List<RemoveProductData> RemoveList { get; set; } = new List<RemoveProductData>();
+
+    
+    public IEnumerable<RemoveProductData> RemoveList { get; set; } = new List<RemoveProductData>();
 
 
 

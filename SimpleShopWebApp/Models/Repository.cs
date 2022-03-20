@@ -22,7 +22,7 @@ namespace SimpleShopWebApp.Models
 
 
 
-    public class Repository : IRepository
+    public class Repository : IDisposable
     {
         private ApplicationDbContext context { get; set; }
         public Repository(ApplicationDbContext context)
@@ -81,11 +81,26 @@ namespace SimpleShopWebApp.Models
 
 
 
-       public async Task<bool> AddProduct(Product product)
+       //public async Task<bool> AddProduct(Product product)
+       // {
+       //     try
+       //     {
+       //         await context.Products.AddAsync(product);
+       //         await context.SaveChangesAsync();
+       //         return true;
+       //     }
+       //     catch (Exception ex)
+       //     {
+       //         return false;
+       //     }
+       // }
+
+
+        public async Task<bool> AddProduct(Product product)
         {
             try
             {
-                context.Products.Add(product);
+                 context.Products.Add(product);
                 await context.SaveChangesAsync();
                 return true;
             }
@@ -95,11 +110,39 @@ namespace SimpleShopWebApp.Models
             }
         }
 
+
+
+
+        public async Task<bool> AddProduct2(Product product)
+        {
+            try
+            {
+
+                context.Products.Add(product);
+                context.Entry<Product>(product).State = EntityState.Added;
+                context.Attach<Product>(product);
+                
+
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
         public void Dispose()
         {
-            //context.DisposeAsync();
-            context.Dispose();
+            context.DisposeAsync();
         }
+
+        //public void Dispose()
+        //{
+
+        //    context.DisposeAsync();
+        //}
     }
 
 

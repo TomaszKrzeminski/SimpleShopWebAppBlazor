@@ -82,15 +82,16 @@ using Microsoft.EntityFrameworkCore;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 79 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\RemoveProduct.razor"
+#line 82 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\RemoveProduct.razor"
        
 
     public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
     public Repository repository { get; set; }
 
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
-    [Parameter]
-    public List<RemoveProductData> RemoveList { get; set; } = new List<RemoveProductData>();
+
+    
+    public IEnumerable<RemoveProductData> RemoveList { get; set; } = new List<RemoveProductData>();
 
 
 

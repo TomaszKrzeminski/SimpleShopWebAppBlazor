@@ -379,4 +379,12 @@ C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\SimpleSh
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\ref\SimpleShopWebApp.dll
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\SimpleShopWebApp.pdb
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\SimpleShopWebApp.genruntimeconfig.cache
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\RazorDeclaration\Blazor\AddProduct2.razor.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Blazor\AddProduct2.razor.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Views\Home\Index2.cshtml.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\RazorDeclaration\Blazor\MainPage2.razor.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Blazor\MainPage2.razor.g.cs
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\SimpleShopWebApp.csproj.AssemblyReference.cache
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\RazorDeclaration\Blazor\AddInstructor.razor.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Blazor\AddInstructor.razor.g.cs
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\Razor\Views\Admin\AddInstructor.cshtml.g.cs

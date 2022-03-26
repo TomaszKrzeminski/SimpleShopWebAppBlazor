@@ -112,6 +112,42 @@ namespace SimpleShopWebApp.Models
 
 
 
+        public async Task<List<ApplicationUser>> GetUsers()
+        {
+            List<ApplicationUser> list = new List<ApplicationUser>();
+            try
+            {
+
+                list =await context.Users.ToListAsync();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return list;
+            }
+
+
+        }
+
+        public async Task<List<string>> GetInstructors()
+        {
+
+            List<string> Instructors = new List<string>();
+
+            try
+            {
+                
+                return Instructors;
+            }
+            catch(Exception ex)
+            {
+                return Instructors;
+            }
+
+        }
+
+
+
 
         public async Task<bool> AddProduct2(Product product)
         {

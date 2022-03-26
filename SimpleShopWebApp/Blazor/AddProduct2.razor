@@ -1,0 +1,164 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using SimpleShopWebApp.Models
+@using SimpleShopWebApp.Data
+@inject NavigationManager Navigation
+@using Microsoft.EntityFrameworkCore.Design
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@using Microsoft.EntityFrameworkCore
+
+@inject IDbContextFactory<ApplicationDbContext>  factory
+
+
+
+
+
+<h3>AddProduct 2 xxxxxx</h3>
+
+<input class="form-control" @bind="FormSubmitMessage" />
+
+<EditForm Model="@Product" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit">
+    <div class="form-group">
+        <label></label>
+        <InputText @bind-Value="Product.Product.ProductName"></InputText>
+    </div>
+    <div class="form-group">
+        <label></label>
+        <InputNumber @bind-Value="Product.Product.PriceHour"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label></label>
+        <InputNumber @bind-Value="Product.Product.PricePerPerson"></InputNumber>
+    </div>
+    <div class="form-group">        
+
+        <button class="btn btn-danger" type="submit">Dodaj</button>
+    </div>
+
+
+</EditForm>
+
+
+
+
+
+@code {
+
+
+    public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
+    public Repository repo { get; set; }
+
+    public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
+
+    public bool DataLogin = false;
+
+    public AddProductViewModel Product { get; set; } = new AddProductViewModel();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        ApplicationDbContext context = factory.CreateDbContext();
+        repo = new Repository(context);
+
+
+    }
+
+
+
+
+
+    //public async Task HandleValidSubmit()
+    //{
+
+
+    //    if (DataLogin)
+    //    {
+    //        return;
+    //    }
+
+
+    //    try
+    //    {
+    //        DataLogin = true;
+    //        FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
+
+
+
+
+    //            await repo.AddProduct(Product.Product);
+
+
+
+
+
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+
+    //    }
+    //    finally
+    //    {
+    //        Product = new AddProductViewModel();
+    //        DataLogin = false;
+
+    //    }
+
+
+
+
+
+
+
+
+
+    //}
+
+
+
+
+    public async Task HandleValidSubmit()
+    {
+
+
+        DataLogin = true;
+        FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
+
+        await repo.AddProduct(Product.Product);
+
+        //Product = new AddProductViewModel();       
+
+
+
+    }
+
+
+
+
+    public void Dispose()
+    {
+        repo.Dispose();
+    }
+
+
+
+
+
+    public async Task Update()
+    {
+
+        //FormSubmitMessage = "Odświeżam";
+
+    }
+
+
+
+
+
+
+}
+

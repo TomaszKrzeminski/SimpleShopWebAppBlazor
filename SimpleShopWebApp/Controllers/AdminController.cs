@@ -68,6 +68,13 @@ namespace SimpleShopWebApp.Controllers
             return View();
         }
 
+
+        public async Task<IActionResult> AddInstructor()
+        {
+            return View();
+        }
+
+
         public async Task<IActionResult> BlockUser()
         {
             return View();

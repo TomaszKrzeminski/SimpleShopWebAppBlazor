@@ -1,0 +1,133 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using SimpleShopWebApp.Models
+@using SimpleShopWebApp.Data
+@inject NavigationManager Navigation
+@using Microsoft.EntityFrameworkCore.Design
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@using Microsoft.EntityFrameworkCore
+
+@inject IDbContextFactory<ApplicationDbContext>  factory
+
+
+
+
+
+<h3>AddInstructor</h3>
+
+<input class="form-control" @bind="FormSubmitMessage" />
+
+
+
+
+@foreach (var item in AddModel.users)
+{
+
+
+    <EditForm Model="@AddModel" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit">
+        <div class="form-group">
+            <label> @item.FirstName</label>
+          
+        </div>
+        <div class="form-group">
+            <label>@item.Email</label>
+           
+        </div>
+       
+        <div class="form-group">
+
+            <button class="btn btn-danger" type="submit">Dodaj</button>
+        </div>
+
+
+    </EditForm>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+@code {
+
+
+    public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
+    public Repository repo { get; set; }
+
+    public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
+
+    public bool DataLogin = false;
+
+
+
+    public AddInstructorViewModel AddModel { get; set; } = new AddInstructorViewModel();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        ApplicationDbContext context = factory.CreateDbContext();
+        repo = new Repository(context);
+
+        AddModel.users = await repo.GetUsers();
+
+    }
+
+
+
+
+
+
+
+
+
+
+    public async Task HandleValidSubmit()
+    {
+
+
+        //DataLogin = true;
+        //FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
+
+        //await repo.AddProduct(Product.Product);
+
+        //Product = new AddProductViewModel();
+
+
+
+    }
+
+
+
+
+    public void Dispose()
+    {
+        repo.Dispose();
+    }
+
+
+
+
+
+    public async Task Update()
+    {
+
+        //FormSubmitMessage = "Odświeżam";
+
+    }
+
+
+
+
+
+
+}

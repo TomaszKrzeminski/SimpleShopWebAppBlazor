@@ -8,15 +8,24 @@ using SimpleShopWebApp.Data;
 namespace SimpleShopWebApp.Models
 {
 
+
+    public class AddCategoryToInstructor
+    {
+ public ApplicationUser userToAdd { get; set; }
+        public string Category { get; set; }
+    }
+
+
     public class AddInstructorViewModel
     {
         public AddInstructorViewModel()
         {
             users = new List<ApplicationUser>();
+            addCategory = new AddCategoryToInstructor();
         }
         public List<ApplicationUser> users { get; set; }
 
-        public ApplicationUser userToAdd { get; set; }
+       public AddCategoryToInstructor addCategory { get; set; }
 
 
     }

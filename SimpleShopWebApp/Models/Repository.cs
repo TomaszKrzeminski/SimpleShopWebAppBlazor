@@ -96,6 +96,42 @@ namespace SimpleShopWebApp.Models
        // }
 
 
+
+        public async Task<bool> AddInstructor(AddCategoryToInstructor add)
+        {
+            try
+            {
+
+
+
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+
+        public async Task<List<string>> GetActivities()
+        {
+            List<string> list = new List<string>();
+            try
+            {
+
+                list =await context.Categories.Select(x => x.CategoryName).ToListAsync();
+                return list;
+            }
+            catch(Exception ex)
+            {
+                return list;
+
+            }
+
+
+        }
         public async Task<bool> AddProduct(Product product)
         {
             try

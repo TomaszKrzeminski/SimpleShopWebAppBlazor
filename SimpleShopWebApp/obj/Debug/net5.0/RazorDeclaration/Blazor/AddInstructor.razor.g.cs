@@ -82,18 +82,22 @@ using Microsoft.EntityFrameworkCore;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 60 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddInstructor.razor"
+#line 161 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddInstructor.razor"
        
 
 
     public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
     public Repository repo { get; set; }
 
+    AddCategoryToInstructor addViewModel { get; set; }
+
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
     public bool DataLogin = false;
 
+    public string Activity { get; set; }
 
+    public List<string> Activities { get; set; }
 
     public AddInstructorViewModel AddModel { get; set; } = new AddInstructorViewModel();
 
@@ -105,6 +109,8 @@ using Microsoft.EntityFrameworkCore;
         repo = new Repository(context);
 
         AddModel.users = await repo.GetUsers();
+        Activities = await repo.GetActivities();
+        Activity = Activities[0];
 
     }
 
@@ -117,16 +123,16 @@ using Microsoft.EntityFrameworkCore;
 
 
 
-    public async Task HandleValidSubmit()
+    public async Task HandleValidSubmit(ApplicationUser user)
     {
 
 
         //DataLogin = true;
         //FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
 
-        //await repo.AddProduct(Product.Product);
+        await repo.AddInstructor(new AddCategoryToInstructor() {userToAdd=user,Category=Activity });
 
-        //Product = new AddProductViewModel();
+       
 
 
 

@@ -11,41 +11,142 @@
 
 @inject IDbContextFactory<ApplicationDbContext>  factory
 
+<div class="container">
+    <h3>Dodaj instruktora</h3>
+    <input class="form-control" @bind="FormSubmitMessage" />
+    
+
+    <div class="row">
+
+        
+
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Kategoria</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in AddModel.users)
+                    {
+
+
+                    <tr>
+
+                            <td>
+                                <label> <strong>@item.Email</strong> </label>
+                            </td>
+                            <td >
+                                <select @bind="Activity">
+                                    <option disabled selected> </option>
+                                    @foreach (var a in Activities)
+                                    {
+                                        <option selected="@(a==Activity)">@a</option>
+                                    }
+                                </select>
+
+                            </td>
+
+                            <td >
+                                <div>
+                                    <EditForm Model="item" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="()=>HandleValidSubmit(item)">                                         
+                                        <button class="btn btn-danger" type="submit">Dodaj</button>
+                                    </EditForm>
+                                 </div>
+                               
+                            </td>
+
+                       
+
+                    </tr>
 
 
 
 
-<h3>AddInstructor</h3>
 
-<input class="form-control" @bind="FormSubmitMessage" />
-
+                    }
 
 
 
-@foreach (var item in AddModel.users)
-{
+
+                    
+
+                </tbody>
+            </table>
 
 
-    <EditForm Model="@AddModel" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit">
-        <div class="form-group">
-            <label> @item.FirstName</label>
-          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            @*@foreach (var item in AddModel.users)
+            {
+
+
+                <div class="row">
+                    <EditForm Model="@AddModel" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit">
+                        <div class="col col-lg-4">
+                            <label>Email :  <strong>@item.Email</strong> </label>
+                        </div>
+                        <div class="col col-lg-4">
+                            <select @bind="Activity">
+                                <option disabled selected> </option>
+                                @foreach (var item in Activities)
+                                {
+                                    <option selected="@(item==Activity)">@item</option>
+                                }
+                            </select>
+
+                        </div>
+
+                        <div class="col col-lg-4">
+                            <button class="btn btn-danger" type="submit">Dodaj</button>
+                        </div>
+
+                    </EditForm>
+                </div>
+
+
+
+
+
+
+            }*@
+
+
         </div>
-        <div class="form-group">
-            <label>@item.Email</label>
-           
-        </div>
-       
-        <div class="form-group">
+        <div class="col-lg-6"></div>
+        
 
-            <button class="btn btn-danger" type="submit">Dodaj</button>
-        </div>
+    </div>
+
+   
 
 
-    </EditForm>
 
 
-}
+
+
+
+
+
+
+
 
 
 
@@ -63,11 +164,15 @@
     public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
     public Repository repo { get; set; }
 
+    AddCategoryToInstructor addViewModel { get; set; }
+
     public void HandleInvalidSubmit() => FormSubmitMessage = "Dane w formularzu są błędne";
 
     public bool DataLogin = false;
 
+    public string Activity { get; set; }
 
+    public List<string> Activities { get; set; }
 
     public AddInstructorViewModel AddModel { get; set; } = new AddInstructorViewModel();
 
@@ -79,6 +184,8 @@
         repo = new Repository(context);
 
         AddModel.users = await repo.GetUsers();
+        Activities = await repo.GetActivities();
+        Activity = Activities[0];
 
     }
 
@@ -91,16 +198,16 @@
 
 
 
-    public async Task HandleValidSubmit()
+    public async Task HandleValidSubmit(ApplicationUser user)
     {
 
 
         //DataLogin = true;
         //FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
 
-        //await repo.AddProduct(Product.Product);
+        await repo.AddInstructor(new AddCategoryToInstructor() {userToAdd=user,Category=Activity });
 
-        //Product = new AddProductViewModel();
+       
 
 
 

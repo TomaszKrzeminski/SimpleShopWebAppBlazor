@@ -40,6 +40,10 @@ namespace SimpleShopWebApp.Models
     {
 
 
+        
+
+
+
         public void SetUser(ApplicationUser user)
         {
 
@@ -111,7 +115,8 @@ namespace SimpleShopWebApp.Models
         public Category()
         {
             Products = new List<Product>();
-            Payments = new List<Payment>();
+           
+            PaymentCategories = new List<PaymentCategory>();
         }
 
         public int CategoryId { get; set; }
@@ -119,7 +124,7 @@ namespace SimpleShopWebApp.Models
 
 
         public virtual List<Product> Products { get; set; }
-        public virtual List<Payment> Payments { get; set; }
+        public List<PaymentCategory> PaymentCategories { get; set; }
 
     }
     public class Product
@@ -174,10 +179,28 @@ namespace SimpleShopWebApp.Models
     }
 
 
+    public class PaymentCategory
+    {
+
+        public int PaymentId { get; set; }
+        public Payment payment { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category category { get; set; }
+
+
+    }
+
+
+
 
 
     public class Payment
     {
+        public Payment()
+        {
+            PaymentCategories = new List<PaymentCategory>();
+        }
         public int PaymentId { get; set; }
         public double PricePerHour { get; set; }
 
@@ -185,8 +208,7 @@ namespace SimpleShopWebApp.Models
         public int? InstructorId { get; set; }
         public virtual Instructor Instructor { get; set; }
 
-        public int? CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+      public List<PaymentCategory> PaymentCategories { get; set; }
 
 
 

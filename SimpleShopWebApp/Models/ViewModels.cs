@@ -11,8 +11,9 @@ namespace SimpleShopWebApp.Models
 
     public class AddCategoryToInstructor
     {
- public ApplicationUser userToAdd { get; set; }
+        public ApplicationUser userToAdd { get; set; }
         public string Category { get; set; }
+        public double Salary { get; set; }
     }
 
 

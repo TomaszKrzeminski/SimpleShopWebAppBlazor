@@ -82,7 +82,7 @@ using Microsoft.EntityFrameworkCore;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 161 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddInstructor.razor"
+#line 166 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddInstructor.razor"
        
 
 
@@ -100,7 +100,8 @@ using Microsoft.EntityFrameworkCore;
     public List<string> Activities { get; set; }
 
     public AddInstructorViewModel AddModel { get; set; } = new AddInstructorViewModel();
-
+    [Parameter]
+    public double Number { get; set; } = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -130,9 +131,9 @@ using Microsoft.EntityFrameworkCore;
         //DataLogin = true;
         //FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
 
-        await repo.AddInstructor(new AddCategoryToInstructor() {userToAdd=user,Category=Activity });
+        await repo.AddInstructor(new AddCategoryToInstructor() {userToAdd=user,Category=Activity ,Salary=Number});
 
-       
+
 
 
 

@@ -101,9 +101,57 @@ namespace SimpleShopWebApp.Models
         {
             try
             {
+                ApplicationUser user = context.Users.Include(x=>x.Instructor).ThenInclude(x=>x.Payments).ThenInclude(x=>x.PaymentCategories)
+                    .Where(x=>x.Id==add.userToAdd.Id).FirstOrDefault();
+
+                if(user.Instructor==null)
+                {
+                user.Instructor = new Instructor() { ApplicationUserId = add.userToAdd.Id };
+                await context.SaveChangesAsync();
+                }
+                else
+                {
+
+                    bool check = user.Instructor.Payments.Any(x => x.PricePerHour == add.Salary );
+
+                    if(!check)
+                    {
+
+                        Instructor instructor = context.Instructors.Find(user.Instructor.InstructorId);
+
+                        Payment payment1 = new Payment() { PricePerHour = add.Salary };
+                        instructor.Payments.Add(payment1);
+                        await context.SaveChangesAsync();
+
+                        Category category1 = context.Categories.Where(x => x.CategoryName == add.Category).FirstOrDefault();
+                        PaymentCategory paycat = new PaymentCategory()
+                        {
+                             category = category1,
+                             CategoryId=category1.CategoryId,
+                              payment = payment1,
+                              PaymentId=payment1.PaymentId
+                        };
+
+                        Payment p = context.Payments.Find(payment1.PaymentId);
+
+                        p.PaymentCategories.Add(paycat);
+                        context.SaveChanges();
+
+                        Category c = context.Categories.Find(category1.CategoryId);
+                        c.PaymentCategories.Add(paycat);
+                        context.SaveChanges();
 
 
 
+
+
+                    }
+
+
+
+                    return false;
+                }
+               
 
                 return true;
             }

@@ -27,6 +27,7 @@
                     <tr>
                         <th>Email</th>
                         <th>Kategoria</th>
+                        <th>Stawka godzinowa</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -51,10 +52,14 @@
                                 </select>
 
                             </td>
+                        <td>
+                            
+                        </td>
 
                             <td >
                                 <div>
-                                    <EditForm Model="item" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="()=>HandleValidSubmit(item)">                                         
+                                    <EditForm Model="item" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="()=>HandleValidSubmit(item)"> 
+                                        <InputNumber @bind-Value="Number" min="1" max="999" />
                                         <button class="btn btn-danger" type="submit">Dodaj</button>
                                     </EditForm>
                                  </div>
@@ -175,7 +180,8 @@
     public List<string> Activities { get; set; }
 
     public AddInstructorViewModel AddModel { get; set; } = new AddInstructorViewModel();
-
+    [Parameter]
+    public double Number { get; set; } = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -205,9 +211,9 @@
         //DataLogin = true;
         //FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
 
-        await repo.AddInstructor(new AddCategoryToInstructor() {userToAdd=user,Category=Activity });
+        await repo.AddInstructor(new AddCategoryToInstructor() {userToAdd=user,Category=Activity ,Salary=Number});
 
-       
+
 
 
 

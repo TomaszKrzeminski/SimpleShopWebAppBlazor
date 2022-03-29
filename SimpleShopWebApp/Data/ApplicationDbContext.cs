@@ -33,6 +33,14 @@ namespace SimpleShopWebApp.Data
                 .HasOne<Cart>(s => s.cart)
                 .WithOne(ad => ad.ApplicationUser)
                 .HasForeignKey<Cart>(ad => ad.ApplicationUserId);
+
+
+
+
+            modelBuilder.Entity<PaymentCategory>().HasKey(sc => new { sc.PaymentId, sc.CategoryId });
+
+
+
         }
 
 
@@ -47,7 +55,7 @@ namespace SimpleShopWebApp.Data
 
         public DbSet<Instructor> Instructors { get; set; }
 
-
+        public DbSet<PaymentCategory> PaymentCategories { get; set; }
 
 
 

@@ -168,7 +168,9 @@ namespace SimpleShopWebApp.Models
             Payments = new List<Payment>();
         }
 
-        public int InstructorId { get; set; }       
+        public int InstructorId { get; set; }  
+        
+        public string InstructorEmail { get; set; }
 
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

@@ -388,3 +388,17 @@ C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\SimpleSh
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\ref\SimpleShopWebApp.dll
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\SimpleShopWebApp.pdb
 C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\obj\Debug\net5.0\SimpleShopWebApp.genruntimeconfig.cache
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Buttons.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Calendars.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Core.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Data.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Inputs.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Lists.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Popups.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Spinner.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.SplitButtons.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Blazor.Themes.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\Syncfusion.Licensing.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\bin\Debug\net5.0\System.Text.Json.dll

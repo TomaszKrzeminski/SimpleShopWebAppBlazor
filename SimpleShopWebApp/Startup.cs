@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using SimpleShopWebApp.Data;
 using SimpleShopWebApp.Models;
+using Syncfusion.Blazor;
+
 
 namespace SimpleShopWebApp
 {
@@ -86,7 +88,9 @@ namespace SimpleShopWebApp
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-           
+            services.AddSyncfusionBlazor(options => { options.IgnoreScriptIsolation = true; });
+
+
         }
 
        

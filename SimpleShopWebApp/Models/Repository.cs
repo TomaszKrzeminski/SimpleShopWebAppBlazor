@@ -97,6 +97,13 @@ namespace SimpleShopWebApp.Models
 
 
 
+        public async Task< List<Instructor>>  GetInstructors()
+        {
+            List<Instructor> list =await context.Instructors.ToListAsync();
+            return list;
+        }
+
+
         public async Task<bool> AddInstructor(AddCategoryToInstructor add)
         {
             try
@@ -106,15 +113,14 @@ namespace SimpleShopWebApp.Models
 
                 if(user.Instructor==null)
                 {
-                user.Instructor = new Instructor() { ApplicationUserId = add.userToAdd.Id };
+                user.Instructor = new Instructor() { ApplicationUserId = add.userToAdd.Id,InstructorEmail=add.userToAdd.Email };
                 await context.SaveChangesAsync();
                 }
-                else
-                {
+               
 
-                    bool check = user.Instructor.Payments.Any(x => x.PricePerHour == add.Salary );
-
-                    if(!check)
+                    bool checkPayment = user.Instructor.Payments.Any(x => x.PricePerHour == add.Salary );
+                    bool checkCategory = user.Instructor.Payments.Where(x => x.PricePerHour == add.Salary).SelectMany(x => x.PaymentCategories).Any(x=>x.category.CategoryName==add.Category);
+                    if(!checkPayment)
                     {
 
                         Instructor instructor = context.Instructors.Find(user.Instructor.InstructorId);
@@ -133,25 +139,46 @@ namespace SimpleShopWebApp.Models
                         };
 
                         Payment p = context.Payments.Find(payment1.PaymentId);
-
                         p.PaymentCategories.Add(paycat);
-                        context.SaveChanges();
+                        await  context.SaveChangesAsync();
 
                         Category c = context.Categories.Find(category1.CategoryId);
                         c.PaymentCategories.Add(paycat);
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
 
 
 
 
 
-                    }
-
-
-
-                    return false;
                 }
-               
+                    else if(checkPayment==true&&checkCategory==false)
+                    {
+
+                        Payment payment = user.Instructor.Payments.Where(x => x.PricePerHour == add.Salary).FirstOrDefault();
+
+                        Category category = context.Categories.Where(x => x.CategoryName == add.Category).FirstOrDefault();
+
+
+                        PaymentCategory paymentCategory = new PaymentCategory()
+                        {
+
+                            category = category,
+                            CategoryId = category.CategoryId,
+                            payment = payment,
+                            PaymentId = payment.PaymentId
+
+                        };
+
+                        payment.PaymentCategories.Add(paymentCategory);
+                        await context.SaveChangesAsync();
+
+
+                       category.PaymentCategories.Add(paymentCategory);
+                       await context.SaveChangesAsync();
+
+
+                }                  
+                              
 
                 return true;
             }

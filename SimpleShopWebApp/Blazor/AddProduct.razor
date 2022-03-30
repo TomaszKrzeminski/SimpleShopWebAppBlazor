@@ -2,7 +2,6 @@
 @using SimpleShopWebApp.Models
 @using SimpleShopWebApp.Data
 @inject NavigationManager Navigation
-@*@implements IDisposable*@
 @using Microsoft.EntityFrameworkCore.Design
 @using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Routing
@@ -20,7 +19,7 @@
 
 <input class="form-control" @bind="FormSubmitMessage" />
 
-<EditForm Model="@Product" OnInvalidSubmit="HandleInvalidSubmit"    OnValidSubmit="HandleValidSubmit" >
+<EditForm Model="@Product" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit">
     <div class="form-group">
         <label></label>
         <InputText @bind-Value="Product.Product.ProductName"></InputText>
@@ -34,8 +33,25 @@
         <InputNumber @bind-Value="Product.Product.PricePerPerson"></InputNumber>
     </div>
     <div class="form-group">
+        <label></label>
+        <InputDateTime id="createdDate" class="form-control col-sm-8" @bind-Value="Product.Product.DateTimeStart"></InputDateTime>
+    </div>
+    <div class="form-group">
+        <label></label>
+        <InputDateTime id="createdDate" class="form-control col-sm-8" @bind-Value="Product.Product.DateTimeEnd"></InputDateTime>
+    </div>
+    <div class="col col-lg-4">
+        <label>Dodaj instruktora</label>
+        <select class="form-control" @bind="Product.Product.">
+            <option disabled selected> </option>
+            @foreach (var item in SortingTypes)
+            {
+                <option selected="@(item==SortType)">@item</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
 
-        @*<input class="btn btn-primary"  value="Dodaj"  @onclick="HandleValidSubmit"   />*@
 
         <button class="btn btn-danger" type="submit">Dodaj</button>
     </div>
@@ -48,6 +64,12 @@
 
 
 @code {
+
+
+    private DateTime? selectedTime = DateTime.Now;
+    public DateTime Min = new DateTime(1990, 1, 1, 8, 15, 0);
+    public DateTime Max = new DateTime(2025, 1, 1, 19, 30, 45);
+
 
 
     public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
@@ -63,7 +85,7 @@
     {
 
 
-        if(DataLogin)
+        if (DataLogin)
         {
             return;
         }
@@ -75,7 +97,7 @@
             FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
 
 
-            using(var repo=new Repository( factory.CreateDbContext()))
+            using (var repo = new Repository(factory.CreateDbContext()))
             {
 
                 await repo.AddProduct(Product.Product);
@@ -86,7 +108,7 @@
 
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
@@ -109,12 +131,21 @@
 
 
 
+    protected override async Task OnInitializedAsync()
+    {
+
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+        
+
+        // get instructors
+
+    }
 
 
 
 
-
-    public  async Task Update()
+    public async Task Update()
     {
 
         //FormSubmitMessage = "Odświeżam";

@@ -33,42 +33,42 @@ using SimpleShopWebApp.Data;
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
+#line 5 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
 using Microsoft.EntityFrameworkCore.Design;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
+#line 6 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
 using Microsoft.AspNetCore.Components;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
+#line 7 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
+#line 8 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
+#line 9 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
+#line 10 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
 using Microsoft.EntityFrameworkCore;
 
 #line default
@@ -82,8 +82,14 @@ using Microsoft.EntityFrameworkCore;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 50 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
+#line 66 "C:\Users\tomszek\Desktop\SimpleWebApp\SimpleShopWebApp\Blazor\AddProduct.razor"
        
+
+
+    private DateTime? selectedTime = DateTime.Now;
+    public DateTime Min = new DateTime(1990, 1, 1, 8, 15, 0);
+    public DateTime Max = new DateTime(2025, 1, 1, 19, 30, 45);
+
 
 
     public string FormSubmitMessage { get; set; } = "Dane formularza nie zostały wysłane";
@@ -99,7 +105,7 @@ using Microsoft.EntityFrameworkCore;
     {
 
 
-        if(DataLogin)
+        if (DataLogin)
         {
             return;
         }
@@ -111,7 +117,7 @@ using Microsoft.EntityFrameworkCore;
             FormSubmitMessage = "Dodano  " + Product.Product.ProductName + " z dnia " + Product.Product.DateTimeStart;
 
 
-            using(var repo=new Repository( factory.CreateDbContext()))
+            using (var repo = new Repository(factory.CreateDbContext()))
             {
 
                 await repo.AddProduct(Product.Product);
@@ -122,7 +128,7 @@ using Microsoft.EntityFrameworkCore;
 
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
@@ -145,12 +151,21 @@ using Microsoft.EntityFrameworkCore;
 
 
 
+    protected override async Task OnInitializedAsync()
+    {
+
+        ApplicationDbContext context = factory.CreateDbContext();
+        repository = new Repository(context);
+        
+
+        // get instructors
+
+    }
 
 
 
 
-
-    public  async Task Update()
+    public async Task Update()
     {
 
         //FormSubmitMessage = "Odświeżam";
